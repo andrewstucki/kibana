@@ -4,13 +4,10 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { schema } from '@kbn/config-schema';
+import { PluginInitializerContext } from 'kibana/server';
 import { EndpointPlugin } from './plugin';
+import { EndpointConfigSchema } from './config';
 
-export const config = {
-  schema: schema.object({ enabled: schema.boolean({ defaultValue: false }) }),
-};
-
-export function plugin() {
-  return new EndpointPlugin();
-}
+export const config = { schema: EndpointConfigSchema };
+export const plugin = (initializerContext: PluginInitializerContext) =>
+  new EndpointPlugin(initializerContext);
